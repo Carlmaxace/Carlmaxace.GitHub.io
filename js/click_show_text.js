@@ -1,1 +1,33 @@
-var a_idx=0;function delay(){$(".buryit").removeAttr("onclick")}jQuery(document).ready(function(e){e("body").click(function(o){var t=new Array("Humility","Honor","Sacrifice","Valor","Compassion","Honest","Justice","Spirituality"),a=e("<span/>").text(t[a_idx]);a_idx=(a_idx+1)%t.length;t=o.pageX,o=o.pageY;a.css({"z-index":5,top:o-20,left:t+10,position:"absolute","font-weight":"bold",color:"rgb("+~~(255*Math.random())+","+~~(255*Math.random())+","+~~(255*Math.random())+")"}),e("body").append(a),a.animate({top:o-180,opacity:0},3e3,function(){a.remove()})}),setTimeout("delay()",2e3)});
+var a_idx = 0;
+jQuery(document).ready(function($) {
+    $("body").click(function(e) {
+        var a = new Array
+        ("Humility", "Honor", "Sacrifice", "Valor", "Compassion", "Honest", "Justice", "Spirituality");
+        var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;
+        var x = e.pageX,
+        y = e.pageY;
+        $i.css({
+            "z-index": 5,
+            "top": y - 20,
+            "left": x + 10,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+        });
+        $("body").append($i);
+        $i.animate({
+            "top": y - 180,
+            "opacity": 0
+        },
+			3000,
+			function() {
+			    $i.remove();
+			});
+    });
+    setTimeout('delay()', 2000);
+});
+
+function delay() {
+    $(".buryit").removeAttr("onclick");
+}
