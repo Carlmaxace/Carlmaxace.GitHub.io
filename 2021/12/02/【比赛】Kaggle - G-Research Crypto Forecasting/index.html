@@ -20,7 +20,7 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-  <title>【Data Science】常用统计指标 - Carl&#39;s Blog</title>
+  <title>【比赛】Kaggle - G-Research Crypto Forecasting - Carl&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【Data Science】常用统计指标">
+            <span class="h2" id="subtitle" title="【比赛】Kaggle - G-Research Crypto Forecasting">
               
             </span>
 
@@ -180,7 +180,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      374 字
+      631 字
     </span>
   
 
@@ -190,7 +190,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      10
        分钟
     </span>
   
@@ -228,44 +228,66 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【Data Science】常用统计指标</h1>
+            <h1 style="display: none">【比赛】Kaggle - G-Research Crypto Forecasting</h1>
             
             <div class="markdown-body">
-              <h2 id="基础指标"><a href="#基础指标" class="headerlink" title="基础指标"></a>基础指标</h2><h3 id="平均数"><a href="#平均数" class="headerlink" title="平均数"></a>平均数</h3><ul>
-<li><p>任一数据的变动都会引起该数值的变动，<strong>受极端值影响较大</strong>。</p>
-</li>
-<li><p>通常而言我们不会使用平均数来填充缺失值。</p>
+              <h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><h3 id="比赛背景"><a href="#比赛背景" class="headerlink" title="比赛背景"></a>比赛背景</h3><p>简述：预测14款比特币未来的趋势。</p>
+<blockquote>
+<p>详情传送门：<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/g-research-crypto-forecasting/overview/description">G-Research Crypto Forecasting | Kaggle</a></p>
+</blockquote>
+<h3 id="Dataset-Structure"><a href="#Dataset-Structure" class="headerlink" title="Dataset Structure"></a>Dataset Structure</h3><p> <strong>train.csv</strong> - The training set</p>
+<ol>
+<li>timestamp - A timestamp for the minute covered by the row.</li>
+<li>Asset_ID - An ID code for the cryptoasset (加密资产).</li>
+<li>Count - The number of trades that took place this minute.</li>
+<li>Open - The USD price at the beginning of the minute.</li>
+<li>High - The highest USD price during the minute.</li>
+<li>Low - The lowest USD price during the minute.</li>
+<li>Close - The USD price at the end of the minute.</li>
+<li>Volume - The number of cryptoasset u units traded during the minute.</li>
+<li>VWAP - The volume-weighted average price for the minute.</li>
+<li>Target - 15 minute residualized returns. See the ‘Prediction and Evaluation section of this notebook for details of how the target is calculated.</li>
+<li>Weight - Weight, defined by the competition hosts <a target="_blank" rel="noopener" href="https://www.kaggle.com/cstein06/tutorial-to-the-g-research-crypto-competition">here</a></li>
+<li>Asset_Name - Human readable Asset name.</li>
+</ol>
+<p><strong>example_test.csv</strong> - An example of the data that will be delivered by the time series API.</p>
+<p><strong>example_sample_submission.csv</strong> - An example of the data that will be delivered by the time series API. The data is just copied from train.csv.</p>
+<p><strong>asset_details.csv</strong> - Provides the real name and of the cryptoasset for each Asset_ID and the weight each cryptoasset receives in the metric.</p>
+<p><strong>supplemental_train.csv</strong> - After the submission period is over this file’s data will be replaced with cryptoasset prices from the submission period. In the Evaluation phase, the train, train supplement, and test set will be contiguous in time, apart from any missing data. The current copy, which is just filled approximately the right amount of data from train.csv is provided as a placeholder.</p>
 <ul>
-<li>均值会因偏态而无法准确反应样本实际情况，使用要慎重。</li>
+<li>📌 There are 14 coins in the dataset</li>
+<li>📌 There are 4 years in the [full] dataset</li>
 </ul>
-</li>
+<h3 id="Baseline"><a href="#Baseline" class="headerlink" title="Baseline"></a>Baseline</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.kaggle.com/c/g-research-crypto-forecasting/discussion/290806">G-Research Crypto Forecasting | Kaggle</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1120107">教程 | Kaggle网站流量预测任务第一名解决方案：从模型到代码详解时序预测 - 云+社区 - 腾讯云 (tencent.com)</a></li>
 </ul>
+<h3 id="Competetion-Target"><a href="#Competetion-Target" class="headerlink" title="Competetion Target"></a>Competetion Target</h3><ul>
+<li><p>监督学习，所需要预测目标——“Target”特征</p>
 <ul>
-<li>平均数需要有实际意义，注意辛普森悖论。</li>
+<li><strong>Target</strong>: Residual log-returns for the asset over a 15 minute horizon.</li>
 </ul>
-<h3 id="众数"><a href="#众数" class="headerlink" title="众数"></a>众数</h3><ul>
-<li><p>分类问题中常用，偷懒时，可用于离散型缺失值填充。</p>
-<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python">series.fillna(series.mode()[<span class="hljs-number">0</span>],inplace = <span class="hljs-literal">True</span>)<br></code></pre></div></td></tr></table></figure>
-</li>
-<li><p>众数也即频数，频数通常在特征构造中时常使用，作为一种特殊的编码(Frequence Encoder）。</p>
+<p><img src="/2021/12/02/%E3%80%90%E6%AF%94%E8%B5%9B%E3%80%91Kaggle%20-%20G-Research%20Crypto%20Forecasting/image-20211202000637295.png" srcset="/img/loading.gif" lazyload alt="Target"></p>
 </li>
 </ul>
-<h3 id="百分位数"><a href="#百分位数" class="headerlink" title="百分位数"></a>百分位数</h3><ul>
-<li><p>中位数：连续问题中常用此来观测数据的偏态，且可用于<strong>对完全随机缺失的连续性特征进行填充</strong>。</p>
-<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python">series.fillna(series.median().inplace = <span class="hljs-literal">True</span>)<br></code></pre></div></td></tr></table></figure>
-</li>
-<li><p>其他百分位数</p>
+<div class="note note-success">
+            <blockquote><p>图片来源：<a target="_blank" rel="noopener" href="https://www.kaggle.com/cstein06/tutorial-to-the-g-research-crypto-competition">G-Research 加密竞赛教程 |卡格尔 (kaggle.com)</a></p></blockquote>
+          </div>
 <ul>
-<li>分箱</li>
-<li>异常值阈值</li>
-</ul>
+<li><p>评价指标：<span class="label label-primary">Target的加权皮尔逊相关系数</span> </p>
+<p>设Target实际值为y_true，预测值为y_pred，Asset_id对应的权重为$a_i$，则实际分数为：</p>
 </li>
 </ul>
-<h3 id="相对数"><a href="#相对数" class="headerlink" title="相对数"></a>相对数</h3><ul>
-<li>增量</li>
-<li>比率</li>
+<script type="math/tex; mode=display">
+Score = \frac{\sum_{i=1}^{14}a_i*corr(y\_true_i,y\_pred_i)}{14}</script><figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">weighted_correlation</span>(<span class="hljs-params">a, b, weights</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">   a:预测值</span><br><span class="hljs-string">   b:实际值</span><br><span class="hljs-string">   weights:Asset权重</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br><br>    w = np.ravel(weights)<br>    a = np.ravel(a)<br>    b = np.ravel(b)<br><br>    sum_w = np.<span class="hljs-built_in">sum</span>(w)<br>    mean_a = np.<span class="hljs-built_in">sum</span>(a * w) / sum_w<br>    mean_b = np.<span class="hljs-built_in">sum</span>(b * w) / sum_w<br>    var_a = np.<span class="hljs-built_in">sum</span>(w * np.square(a - mean_a)) / sum_w<br>    var_b = np.<span class="hljs-built_in">sum</span>(w * np.square(b - mean_b)) / sum_w<br><br>    cov = np.<span class="hljs-built_in">sum</span>((a * b * w)) / np.<span class="hljs-built_in">sum</span>(w) - mean_a * mean_b<br>    corr = cov / np.sqrt(var_a * var_b)<br><br>    <span class="hljs-keyword">return</span> corr<br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>进一步分析，该分数重点可拆分为两点：<ol>
+<li><strong>权重</strong>，由于是加权皮尔逊相关系数，那么权重更大的Target对相关系数的贡献越多</li>
+<li><strong>相关系数</strong>，也即比较的是相关性，是变化率之间的联系，相当于是时序之中的斜率，也即在未来时间段看涨还是看跌。</li>
+</ol>
+</li>
 </ul>
-<h2 id="泛化误差"><a href="#泛化误差" class="headerlink" title="泛化误差"></a>泛化误差</h2><h3 id="数学期望"><a href="#数学期望" class="headerlink" title="数学期望"></a>数学期望</h3><h3 id="方差-Var"><a href="#方差-Var" class="headerlink" title="方差(Var)"></a>方差(Var)</h3><h3 id="标准差-Std"><a href="#标准差-Std" class="headerlink" title="标准差(Std)"></a>标准差(Std)</h3><h3 id="协方差-Cov"><a href="#协方差-Cov" class="headerlink" title="协方差(Cov)"></a>协方差(Cov)</h3><h3 id="相关系数-Corr"><a href="#相关系数-Corr" class="headerlink" title="相关系数(Corr)"></a>相关系数(Corr)</h3><h3 id="可决系数-R-2"><a href="#可决系数-R-2" class="headerlink" title="可决系数(R^2)"></a>可决系数(R^2)</h3><h3 id="离差平方和-SST"><a href="#离差平方和-SST" class="headerlink" title="离差平方和(SST)"></a>离差平方和(SST)</h3><h3 id="残差-组间-平方和-SSE"><a href="#残差-组间-平方和-SSE" class="headerlink" title="残差(组间)平方和(SSE)"></a>残差(组间)平方和(SSE)</h3><h3 id="回归-组内-平方和-SSR"><a href="#回归-组内-平方和-SSR" class="headerlink" title="回归(组内)平方和(SSR)"></a>回归(组内)平方和(SSR)</h3><h3 id="泛化误差三大组成——噪音-偏差-方差"><a href="#泛化误差三大组成——噪音-偏差-方差" class="headerlink" title="泛化误差三大组成——噪音\偏差\方差"></a>泛化误差三大组成——噪音\偏差\方差</h3><h2 id="分类问题——混淆矩阵（二分类为基础）"><a href="#分类问题——混淆矩阵（二分类为基础）" class="headerlink" title="分类问题——混淆矩阵（二分类为基础）"></a>分类问题——混淆矩阵（二分类为基础）</h2><h3 id="TP、FP、TN、FN"><a href="#TP、FP、TN、FN" class="headerlink" title="TP、FP、TN、FN"></a>TP、FP、TN、FN</h3><h3 id="TPR、FPR、TNR、FNR"><a href="#TPR、FPR、TNR、FNR" class="headerlink" title="TPR、FPR、TNR、FNR"></a>TPR、FPR、TNR、FNR</h3><h3 id="第一类错误、第二类错误、Accuracy、Precision、Recall"><a href="#第一类错误、第二类错误、Accuracy、Precision、Recall" class="headerlink" title="第一类错误、第二类错误、Accuracy、Precision、Recall"></a>第一类错误、第二类错误、Accuracy、Precision、Recall</h3><h3 id="f1-score、fn-score"><a href="#f1-score、fn-score" class="headerlink" title="f1-score、fn-score"></a>f1-score、fn-score</h3><h3 id="AUC"><a href="#AUC" class="headerlink" title="AUC"></a>AUC</h3><h2 id="回归问题"><a href="#回归问题" class="headerlink" title="回归问题"></a>回归问题</h2><h3 id="MSE"><a href="#MSE" class="headerlink" title="MSE"></a>MSE</h3><h3 id="RMSE"><a href="#RMSE" class="headerlink" title="RMSE"></a>RMSE</h3><h2 id="数据分布"><a href="#数据分布" class="headerlink" title="数据分布"></a>数据分布</h2><h3 id="显著性、置信度、置信区间"><a href="#显著性、置信度、置信区间" class="headerlink" title="显著性、置信度、置信区间"></a>显著性、置信度、置信区间</h3><h3 id="F、t、N、卡方检验值"><a href="#F、t、N、卡方检验值" class="headerlink" title="F、t、N、卡方检验值"></a>F、t、N、卡方检验值</h3><h3 id="熵、交叉熵、KL散度"><a href="#熵、交叉熵、KL散度" class="headerlink" title="熵、交叉熵、KL散度"></a>熵、交叉熵、KL散度</h3><h3 id="极大似然估计量与最大后验估计量"><a href="#极大似然估计量与最大后验估计量" class="headerlink" title="极大似然估计量与最大后验估计量"></a>极大似然估计量与最大后验估计量</h3>
+<h2 id="数据观测"><a href="#数据观测" class="headerlink" title="数据观测"></a>数据观测</h2>
             </div>
             <hr>
             <div>
@@ -276,13 +298,15 @@
                     
                       <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/">数据科学</a>
                     
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/%E6%AF%94%E8%B5%9B/">比赛</a>
+                    
                   </div>
                 
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">评价指标</a>
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
                     
                   </div>
                 
@@ -299,15 +323,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/02/%E3%80%90Data%20Science%E3%80%91Python%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E7%94%A8%E5%BA%93%EF%BC%88%E4%B8%80%EF%BC%89/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【Data Science】Python机器学习实用库（一）</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/12/01/%E3%80%90Data%20Science%E3%80%91%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%B6%E6%97%8F%E5%8F%B2/">
+                        <span class="hidden-mobile">【Data Science】决策树家族史</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
