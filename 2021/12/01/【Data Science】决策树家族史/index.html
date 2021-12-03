@@ -276,10 +276,9 @@ CE(p) = 1-\max(p)</script></li>
 Gain = I(parent) - I(child)</script><ul>
 <li><p>由于I(parent)是既定的，故要使得Gain最大，实际上是需要I(child)最小，对于I(child)，其实际为条件不纯度的加权平均综合。</p>
 </li>
-<li><p>若以熵为例，则其等价于条件熵——$H(Y|X)$代表<em>条件熵</em>，$H(Y|X=x)$代表后验熵（注意负号），<strong>信息增益优化的目标就是让条件熵最小</strong>。</p>
+<li><p>若以熵为不纯度，则I(child)等价于条件熵。设$H(Y|X)$代表条件熵，$H(Y|X=x)$代表后验熵（注意负号），那么可知<strong>信息增益优化的目标就是让条件熵最小</strong>。</p>
 <script type="math/tex; mode=display">
-H(Y|X) = \sum_{x\in X}p(x)H(Y|X=x)\\
-\\
+H(Y|X) = \sum_{x\in X}p(x)H(Y|X=x)\\</script><script type="math/tex; mode=display">
 H(Y|X=x) = -\sum_{y\in Y}p(y|x)*\log_2{p(y|x)}</script></li>
 </ul>
 <h3 id="决策树生成（三大决策树算法）"><a href="#决策树生成（三大决策树算法）" class="headerlink" title="决策树生成（三大决策树算法）"></a>决策树生成（三大决策树算法）</h3><h4 id="算法明灯——ID3算法"><a href="#算法明灯——ID3算法" class="headerlink" title="算法明灯——ID3算法"></a>算法明灯——ID3算法</h4><ul>
