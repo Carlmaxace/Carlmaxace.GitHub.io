@@ -180,7 +180,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.4k 字
+      8.7k 字
     </span>
   
 
@@ -190,7 +190,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      49
+      93
        分钟
     </span>
   
@@ -252,7 +252,7 @@
 <li><p>Entropy</p>
 <script type="math/tex; mode=display">
   Entropy(p) = -\sum_{i=1}p_i*\log_2p_i</script><blockquote>
-<p>当切分的子节点为2个时，易得该项为Cross-Entropy</p>
+<p>当切分的子节点为2个时，易得该项为Cross-Entropy。另外值得一提的是，信息熵本身是一种主观发明，是一种定义，而非对事物规律的发现，包括以2为底是为了适应二进制，实际可以是大于1的任何数，都符合单调性。</p>
 </blockquote>
 </li>
 <li><p>Gini index</p>
@@ -281,7 +281,7 @@ Gain = I(parent) - I(child)</script><ul>
 H(Y|X) = \sum_{x\in X}p(x)H(Y|X=x)\\</script><script type="math/tex; mode=display">
 H(Y|X=x) = -\sum_{y\in Y}p(y|x)*\log_2{p(y|x)}</script></li>
 </ul>
-<h3 id="决策树生成（早先的两种算法）"><a href="#决策树生成（早先的两种算法）" class="headerlink" title="决策树生成（早先的两种算法）"></a>决策树生成（早先的两种算法）</h3><h4 id="树之明灯——ID3算法"><a href="#树之明灯——ID3算法" class="headerlink" title="树之明灯——ID3算法"></a>树之明灯——ID3算法</h4><ul>
+<h3 id="决策树生成（早先的两种算法）"><a href="#决策树生成（早先的两种算法）" class="headerlink" title="决策树生成（早先的两种算法）"></a>决策树生成（早先的两种算法）</h3><h4 id="ID3算法——树之明灯"><a href="#ID3算法——树之明灯" class="headerlink" title="ID3算法——树之明灯"></a>ID3算法——树之明灯</h4><ul>
 <li>撒旦来了都说好的ID3算法原型来源于 J.R Quinlan 的博士论⽂，是早期基础理论较为完善，使用较为⼴泛的决策树模型，在此基础上 J.R Quinlan 进行优化后，陆续推出了C4.5 和 C5.0 决策树算法。</li>
 <li><p>ID3算法的核心是在决策树各个结点应⽤<strong>信息增益</strong>准则选择特征，递归地构建决策树。具体⽅法是： </p>
 <ol>
@@ -315,7 +315,7 @@ H(Y|X=x) = -\sum_{y\in Y}p(y|x)*\log_2{p(y|x)}</script></li>
             <p>附一个ID3的代码（仅供参考）：</p>
           </div>
 <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calEnt</span>(<span class="hljs-params">dataSet</span>):</span><br>    n = dataSet.shape[<span class="hljs-number">0</span>] <span class="hljs-comment"># 数据集总⾏数</span><br>    iset = dataSet.iloc[:,-<span class="hljs-number">1</span>].value_counts() <span class="hljs-comment"># 标签的所有类别</span><br>    p = iset/n <span class="hljs-comment"># 每⼀类标签所占⽐</span><br>    ent = (-p*np.log2(p)).<span class="hljs-built_in">sum</span>() <span class="hljs-comment"># 计算信息熵</span><br>    <span class="hljs-keyword">return</span> ent<br><br><span class="hljs-comment"># 创建数据集</span><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createDataSet</span>():</span><br>    row_data = &#123;<span class="hljs-string">&#x27;accompany&#x27;</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>],<br>                <span class="hljs-string">&#x27;game&#x27;</span>:[<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>],<br>                <span class="hljs-string">&#x27;bad boy&#x27;</span>:[<span class="hljs-string">&#x27;yes&#x27;</span>,<span class="hljs-string">&#x27;yes&#x27;</span>,<span class="hljs-string">&#x27;no&#x27;</span>,<span class="hljs-string">&#x27;no&#x27;</span>,<span class="hljs-string">&#x27;no&#x27;</span>]&#125;<br>    dataSet = pd.DataFrame(row_data)<br>    <span class="hljs-keyword">return</span> dataSet<br>dataSet = createDataSet()<br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">参数说明：</span><br><span class="hljs-string"> dataSet：原始数据集</span><br><span class="hljs-string">返回：</span><br><span class="hljs-string"> axis：数据集最佳切分列的索引</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-comment"># 选择最优的列进⾏切分</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">bestSplit</span>(<span class="hljs-params">dataSet</span>):</span><br>    baseEnt = calEnt(dataSet) <span class="hljs-comment"># 计算原始熵</span><br>    bestGain = <span class="hljs-number">0</span> <span class="hljs-comment"># 初始化信息增益</span><br>    axis = -<span class="hljs-number">1</span> <span class="hljs-comment"># 初始化最佳切分列，</span><br>标签列<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(dataSet.shape[<span class="hljs-number">1</span>]-<span class="hljs-number">1</span>): <span class="hljs-comment"># 对特征的每⼀列进⾏</span><br>    循环<br>    levels= dataSet.iloc[:,i].value_counts().index <span class="hljs-comment"># 提取出当前列的所有</span><br>    取值<br>    ents = <span class="hljs-number">0</span> <span class="hljs-comment"># 初始化⼦节点的信息</span><br>    熵<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> levels: <span class="hljs-comment"># 对当前列的每⼀个取值进⾏循环</span><br>        childSet = dataSet[dataSet.iloc[:,i]==j] <span class="hljs-comment"># 某⼀个⼦节点的dataframe</span><br>        ent = calEnt(childSet) <span class="hljs-comment"># 计算某⼀个⼦节点的信息熵</span><br>        ents += (childSet.shape[<span class="hljs-number">0</span>]/dataSet.shape[<span class="hljs-number">0</span>])*ent <span class="hljs-comment"># 计算当前列的信息熵</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;第<span class="hljs-subst">&#123;i&#125;</span>列的信息熵为<span class="hljs-subst">&#123;ents&#125;</span>&#x27;</span>)<br>        infoGain = baseEnt-ents <span class="hljs-comment"># 计算当前列的信息增益</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;第<span class="hljs-subst">&#123;i&#125;</span>列的信息增益为<span class="hljs-subst">&#123;infoGain&#125;</span>&#x27;</span>)<br>        <span class="hljs-keyword">if</span> (infoGain &gt; bestGain):<br>            bestGain = infoGain <span class="hljs-comment"># 选择最⼤信息增益</span><br>            axis = i <span class="hljs-comment"># 最⼤信息增益所在列</span><br>            的索引<br>            <span class="hljs-keyword">return</span> axis<br>        <br><span class="hljs-comment"># bestSplit(dataSet) # 返回的结果为0，即选择第0列来切分数据集</span><br><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">函数功能：按照给定的列划分数据集</span><br><span class="hljs-string">参数说明：</span><br><span class="hljs-string"> dataSet：原始数据集</span><br><span class="hljs-string"> axis：指定的列索引</span><br><span class="hljs-string"> value：指定的属性值</span><br><span class="hljs-string">返回：</span><br><span class="hljs-string"> redataSet：按照指定列索引和属性值切分后的数据集</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mySplit</span>(<span class="hljs-params">dataSet,axis,value</span>):</span><br>    col = dataSet.columns[axis]<br>    redataSet = dataSet.loc[dataSet[col]==value,:].drop(col,axis=<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> redataSet<br><br><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">函数功能：基于最⼤信息增益切分数据集，递归构建决策树</span><br><span class="hljs-string">参数说明：</span><br><span class="hljs-string"> dataSet：原始数据集(最有⼀列是标签)</span><br><span class="hljs-string">返回：</span><br><span class="hljs-string"> myTree：字典形式的树</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">createTree</span>(<span class="hljs-params">dataSet</span>):</span><br>    featlist = <span class="hljs-built_in">list</span>(dataSet.columns) <span class="hljs-comment"># 提取出数据集所有的列</span><br>    classlist = dataSet.iloc[:,-<span class="hljs-number">1</span>].value_counts() <span class="hljs-comment"># 获取最后⼀列类标签</span><br>    <span class="hljs-comment"># 判断最多标签数⽬是否等于数据集⾏数，或者数据集是否只有⼀列</span><br>    <span class="hljs-keyword">if</span> classlist[<span class="hljs-number">0</span>]==dataSet.shape[<span class="hljs-number">0</span>] <span class="hljs-keyword">or</span> dataSet.shape[<span class="hljs-number">1</span>] == <span class="hljs-number">1</span>:<br>        <span class="hljs-keyword">return</span> classlist.index[<span class="hljs-number">0</span>] <span class="hljs-comment"># 如果是，返回类标签</span><br>    axis = bestSplit(dataSet) <span class="hljs-comment"># 确定出当前最佳切分列的索引</span><br>    bestfeat = featlist[axis] <span class="hljs-comment"># 获取该索引对应的特征</span><br>    myTree = &#123;bestfeat:&#123;&#125;&#125; <span class="hljs-comment"># 采⽤字典嵌套的⽅式存储树信息</span><br>    <span class="hljs-keyword">del</span> featlist[axis] <span class="hljs-comment"># 删除当前特征</span><br>    valuelist = <span class="hljs-built_in">set</span>(dataSet.iloc[:,axis]) <span class="hljs-comment"># 提取最佳切分列所有属性值</span><br>    <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> valuelist: <span class="hljs-comment"># 对每⼀个属性值递归建</span><br>        树<br>        myTree[bestfeat][value] = createTree(mySplit(dataSet,axis,value))<br>        <span class="hljs-keyword">return</span> myTree<br>    <br>myTree = createTree(dataSet)<br>myTree<br><br></code></pre></div></td></tr></table></figure>
-<h4 id="改良乌龟——C4-5算法"><a href="#改良乌龟——C4-5算法" class="headerlink" title="改良乌龟——C4.5算法"></a>改良乌龟——C4.5算法</h4><p>C4.5算法改用信息增益比最大化来切分叶节点。</p>
+<h4 id="C4-5算法——优秀的乌龟"><a href="#C4-5算法——优秀的乌龟" class="headerlink" title="C4.5算法——优秀的乌龟"></a>C4.5算法——优秀的乌龟</h4><p>C4.5算法改用信息增益比最大化来切分叶节点。</p>
 <ul>
 <li>对于D数据集的a特征，Gain_Ratio(D,a)为信息增益比,Gain(D,a)为信息增益,IV(a)为该特征的信息熵,p(i)为i特征分类的样本占比。</li>
 </ul>
@@ -362,10 +362,10 @@ IV(a) = -\sum_{i\in{a}}p(i)\log_2p(i)</script><ul>
 </li>
 <li><p>后剪枝：先生成完整的树，然后从下到上对非叶节点进行考察，如果将该结点对应的子树剪枝为一个叶节点能带来泛化能力提升，则替换。</p>
 <p><img src="/2021/12/01/%E3%80%90Data%20Science%E3%80%91%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%B6%E6%97%8F%E5%8F%B2/image-20211206021032924.png" srcset="/img/loading.gif" lazyload alt="剪枝对比"></p>
+<p>随着以上的剪枝思想的考量，应运而生的是<strong>极为重要的基学习器——CART算法</strong></p>
 </li>
 </ul>
-<h4 id="CART算法"><a href="#CART算法" class="headerlink" title="CART算法"></a>CART算法</h4><p>随着以上的剪枝思想的考量，应运而生的是<strong>极为重要的基学习器——CART算法</strong></p>
-<ul>
+<h4 id="CART算法——臭皮匠"><a href="#CART算法——臭皮匠" class="headerlink" title="CART算法——臭皮匠"></a>CART算法——臭皮匠</h4><ul>
 <li>二叉树，没有该死的多叉树了！二叉树原则：条件成立向左，反之向右。</li>
 <li>Label可以是离散型，也可以是连续型，终于可以解决回归问题了！</li>
 <li><p>连续型数据不需要离散化，C4.5算法那个乌龟一样慢的分箱思路终于宣告结束。</p>
@@ -387,6 +387,8 @@ IV(a) = -\sum_{i\in{a}}p(i)\log_2p(i)</script><ul>
 \min_{j,s}[\min_{c1}\sum_{x_i\in{R_1(j,s)}}(y_i-c_1)^2+\min_{c2}\sum_{x_i\in{R_2(j,s)}}(y_i-c_1)^2]</script></li>
 <li><p>其实扯那么多也就是看所有特征的所有切分，哪个能让（左子树离差平方和+右子树离差平方和）最小。唯才是举！你有货你就来！</p>
 </li>
+<li><p>具体的方法是MLE(极大似然估计)+梯度提升的方法来找到最优值。（这里就不展开啦，大家肯定都懂）</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -394,7 +396,7 @@ IV(a) = -\sum_{i\in{a}}p(i)\log_2p(i)</script><ul>
 <h4 id="决策树优点"><a href="#决策树优点" class="headerlink" title="决策树优点"></a>决策树优点</h4><ol>
 <li>白盒模型，有解释性，因为树可以画出来，不像云山雾绕的神经网络。</li>
 <li>树模型只管相对大小，不需要搞花里胡哨（归一化、标准化）</li>
-<li>缺失值也可以不管！统一看做一个特殊类。</li>
+<li>缺失值也可以不管！统一看做一个特殊类（比所有数都小的数）。</li>
 <li>可以同时处理数值型和分类型。</li>
 <li><p>预测时的计算成本相比其他的算法要低，为训练样本数的对数$\log{n}$。</p>
 </li>
@@ -409,15 +411,19 @@ IV(a) = -\sum_{i\in{a}}p(i)\log_2p(i)</script><ul>
 <li>部分领域不擅长，例如XOR，奇偶校验或多路复⽤器问题</li>
 <li>如果标签中的某些类占主导地位，会创建偏向主导类的树——数据样本不平衡时，该算法听风是雨，人云亦云。</li>
 <li>决策树是非参数模型,我们并无法通过决策树得知任何关于分布的参数。</li>
+<li>对超多分类的特征比如邮编、地区等依然束手无策，onehot？10000个分类的单特征，用one-hot+PCA降维同样折磨，维度灾难不说，哪怕去掉count == 1的部分剩下的依然让人哀嚎，算到天荒地老。但如果离散编码，那就是默认它们之间的大小关系，编码数字大就代表更大这种错误的信息，愚蠢的CART树如何识得此阵？只能强行搞一波地域黑，用邮政编码的大小给每个地区安排上了。而为了强行能够使用，我们必须要先对这种变量聚类分箱处理，这一顿操作下来，如此的折腾，两眼一黑的我不禁想问，这该死的决策树为什么不考虑到这一点呢？我只想安静的调包，诸君想必也是吧。</li>
 </ol>
 <h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
 <li><p>虽然说存在剪枝的操作可以一定程度上限制过拟合，但实际决策树仍然是一个极度过拟合的算法。我们<strong>需要一些其他的方式来防止过拟合</strong>。</p>
 </li>
 <li><p>单颗决策树如此的不稳定，多颗树集成学习的犯罪动机初见端倪。</p>
 </li>
-<li>基于决策树算法，后续引入的两大集成思路也慢慢浮出水面——<strong>Bagging、Boosting。</strong>而这些也是现在工业界炙手可热的算法框架。</li>
+<li>基于决策树算法，后续引入的四大集成思路也慢慢浮出水面——<strong>Bagging、Boosting、Stacking、Blending。</strong>而这些也是现在工业界炙手可热的集成算法框架，尤其是<strong>Boosting算法</strong>。</li>
 </ul>
-<h2 id="集成学习"><a href="#集成学习" class="headerlink" title="集成学习"></a>集成学习</h2><h3 id="Bagging"><a href="#Bagging" class="headerlink" title="Bagging"></a>Bagging</h3><ul>
+<h2 id="Bagging"><a href="#Bagging" class="headerlink" title="Bagging"></a>Bagging</h2><p>CART决策树白天打死打生，疯狂运算，夜里脱去一身的疲惫，常常孤枕难眠，深感独木难支。“我们联合”与“三根破树枝顶根紫檀木”的口号也在脑海中声势渐大。它意识到这可能是它此生绝无仅有的机会，自己的不稳定性就在于老是独断专行，而且很容易听信谗言，周围数据对他的影响太大，一粒老鼠屎总能坏了一锅汤。虽然它确信自己是在优化的路上，但是这种伴随极大不确定性的震荡上升（方差）令他深恶痛绝，于是他垂死病中惊坐起！决定！Bagging起来！</p>
+<ul>
+<li><p>Bagging的核心一言以蔽之：并行与重复采样，<strong>天下兴亡匹夫有责，分则能成！</strong></p>
+</li>
 <li><p>Bagging存在对袋外数据(out of bags)的利用，也就是藏了一手数据，用来防止过拟合，类似于交叉验证的思想来选择训练集。</p>
 </li>
 <li><p>Bagging用来筛选数据的方法是<strong>重复放回采样</strong>，采样次数通常就是数据集样本个数次，假设有n个样本，那么采样的比例（每个样本被抽中的概率）可以计算如下：</p>
@@ -426,47 +432,158 @@ IV(a) = -\sum_{i\in{a}}p(i)\log_2p(i)</script><ul>
 <p>随机采样(Bootstrap Sampling)：从n个样本里重复有放回的采样n次，然后重复采样的部分删去。</p>
 </blockquote>
 </li>
-<li><p>Bagging是<strong>并行式集成学习</strong>的著名代表，每进行一次Bootstrap Sampling，都会生成不一样的采样集。<strong>假设基学习器为决策树</strong>，那么对每个采样集，都会生成一颗决策树。</p>
+<li><p>Bagging是<strong>并行式集成学习</strong>的著名代表，每进行一次Bootstrap Sampling，都会生成不一样的采样集。<strong>假设基学习器为决策树</strong>，那么对每个采样集，都会生成一颗决策树（我的兄弟来辣）。</p>
 <ul>
 <li>对分类任务，使用Voting（投票法），实际预测结果为所有决策树的众数。</li>
 <li>对回归任务，使用Model-Averaging(平均法)，实际预测结果为所有决策树的平均数。</li>
 </ul>
 </li>
 </ul>
-<h4 id="Bagging基本思想小结"><a href="#Bagging基本思想小结" class="headerlink" title="Bagging基本思想小结"></a>Bagging基本思想小结</h4><ol>
-<li><p>给定一个弱学习器和一个训练集</p>
-</li>
-<li><p>弱学习器要弱，不能太准。</p>
-</li>
-<li><p>将该学习算法使用多次, 再进行投票or平均。</p>
-</li>
-<li><p>最后结果准确率将得到提高。</p>
-</li>
+<h3 id="Bagging基本思想小结"><a href="#Bagging基本思想小结" class="headerlink" title="Bagging基本思想小结"></a>Bagging基本思想小结</h3><ol>
+<li>给定一个弱学习器和一个训练集</li>
+<li>弱学习器要弱，不能太准。</li>
+<li>将该学习算法使用多次, 再进行投票or平均。</li>
+<li>最后结果准确率将得到提高。</li>
 <li>Bagging<strong>通过降低基分类器的方差</strong>，<strong>改善了泛化误差</strong>。如果基分类器不稳定，bagging有助于降低训练数据的随机波动导致的误差。</li>
-<li>Bagging算法办事，讲究公平，公平，还是TM的公平！每个样本被选中的概率与权重都相同！（Boosting：我怀疑你在内涵我）</li>
+<li>基学习器们和样本们给我听好了！我Bagging算法只办三件事！公平，公平，还是TM的公平！<strong>每个样本被选中的概率与权重都相同！每个基学习器的投票权重也相同！</strong>（Boosting：我怀疑你在内涵我）</li>
+<li>并行！每个基学习器都是同时开始的（当然实际上不是，没有那么多线程），且之间互不影响，各扫门前雪，然后投票就完事儿啦。（这当真好吗？）</li>
 </ol>
-<h4 id="Bagging手下大将——RandomForest"><a href="#Bagging手下大将——RandomForest" class="headerlink" title="Bagging手下大将——RandomForest"></a>Bagging手下大将——RandomForest</h4><p>随机森林的核心是随机，其随机体现在三个方面：</p>
+<h3 id="RandomForest——Bagging手下头号大将（因为基本仅一个，哈哈）"><a href="#RandomForest——Bagging手下头号大将（因为基本仅一个，哈哈）" class="headerlink" title="RandomForest——Bagging手下头号大将（因为基本仅一个，哈哈）"></a>RandomForest——Bagging手下头号大将（因为基本仅一个，哈哈）</h3><p>1995年，某个伟大的人出生了，伴随着他的诞生，由Leo Breiman和Adele Cutler提出的RandomForest与有荣焉，一并到来。</p>
+<h4 id="Random"><a href="#Random" class="headerlink" title="Random"></a>Random</h4><p>随机森林的核心是随机，其随机体现在三个方面：</p>
 <ol>
-<li><p>行随机：Bagging头号唯粉——每颗决策树的采样集随机。</p>
+<li>行随机：Bagging头号唯粉——每颗决策树的采样集随机。</li>
+<li>列随机：弱水三千，仅取两千——通过设置超参数，可调节特征选择的比例，也即每颗决策树的列也各有不同。</li>
+<li>切分随机：<strong>偶尔随性，超越贪婪</strong>——对于每颗子树（通常都是CART），不一定选择最优的切分特征来切分，而是在排名靠前的几个特征里按照一定权重来选择，大部分时候选最优，偶尔选次优的特征来切分，以此脱出贪婪算法的牢笼，以求寻找到全局最优的切分可能（当然大概率更差），别问全局最优怎么来的，妙手偶得之！</li>
+</ol>
+<h4 id="Forest"><a href="#Forest" class="headerlink" title="Forest"></a>Forest</h4><p>所谓森林也就是指随机森林是由多颗决策树组成的森林，最后的预测结果是所有树的联合表决。回归则平均、分类则众数。</p>
+<h4 id="随机森林优缺点"><a href="#随机森林优缺点" class="headerlink" title="随机森林优缺点"></a>随机森林优缺点</h4><ul>
+<li><p>Advantages: </p>
+<ul>
+<li>随机森林在运算量没有显著提高的前提下提高了预测精度。</li>
+<li>有效降低了过拟合，也即降低了泛化误差中的方差部分，只要树足够多（数也足够多），再大的方差都能给你平下来。</li>
+<li>在sklearn中，可以借助API来观察特征重要性，谁在摆烂一览无余，然后大搞末位淘汰的资本主义。</li>
+<li>更好的应对了无用特征，因为随机，总有它不在的时候。</li>
+<li>更好的应对了异常值，因为随机，总有它不在的时候。</li>
+</ul>
 </li>
-<li><p>列随机：弱水三千，仅取两千——通过设置超参数，可调节特征选择的比例，也即每颗决策树的列也各有不同。</p>
+<li><p>Disadvantages:</p>
+<ul>
+<li><p>森林中的决策树个数很多时，训练需要的时间和空间会较大。</p>
 </li>
-<li><p>切分随机：偶尔任性，超越贪婪——对于每颗子树（通常都是CART），不一定选择最优的切分特征来切分，而是在排名靠前的几个特征里按照一定权重来选择，大部分时候选最优，偶尔选次优的特征来切分，以此来脱出贪婪算法的牢笼，以求寻找到全局最优的切分可能（当然大概率更差）。</p>
+<li><p>降低了方差，但没有更好的处理偏差。</p>
+</li>
+<li><p>相比于单一决策树，它的随机性让我们难以对模型进行解释。但实际决策树本身也很随机，其实这也不算缺点。</p>
+</li>
+<li><p>不擅长回归问题，这也是CART的老毛病了，没办法，子承父业。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h2><h3 id="Boosting思想起源"><a href="#Boosting思想起源" class="headerlink" title="Boosting思想起源"></a>Boosting思想起源</h3><p>Boosting思想起源于PAC（Probably Approximately Correct）学习模型。当时是1989年有两个人(Kearns 和 Valiant) 认为学习器生而平等，提出了猜想——弱学习器和强学习器学习能力等价，龟龟，这么大胆的猜想一经提出，一时间……竟无人问津。直到1990年，咳，也就是一年之后，Schapire通过多项式算法证实了前人的猜想，并正式提出了Boosting算法，但是这个刚具雏形的版本还不能应用于实际。</p>
+<h3 id="AdaBoost——万恶之源"><a href="#AdaBoost——万恶之源" class="headerlink" title="AdaBoost——万恶之源"></a>AdaBoost——万恶之源</h3><p>1997年，风云激荡，那年我两岁，同年，Schapire提出了AdaBoost（Adaptive Boosting——自适应增强算法）。</p>
+<p><img src="/2021/12/01/%E3%80%90Data%20Science%E3%80%91%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%B6%E6%97%8F%E5%8F%B2/image-20211206173243659-16387831653521-16387831840662.png" srcset="/img/loading.gif" lazyload alt="Adaptive Boosting 算法流程"></p>
+<p><img src="/2021/12/01/%E3%80%90Data%20Science%E3%80%91%E5%86%B3%E7%AD%96%E6%A0%91%E5%AE%B6%E6%97%8F%E5%8F%B2/image-20211206191856468-16387895435535.png" srcset="/img/loading.gif" lazyload alt="Adaptive Boosting 串行思路图"></p>
+<ul>
+<li><p>自此，Boosting算法的核心思路已明确：串行与权重调整，前人栽树，后人乘凉，对症下药，级联提升。<strong>成不在我，功不唐捐。</strong></p>
+</li>
+<li><p>抽取方式：不放回抽取，子集等于全集，<strong>每个采样集内样本完全一致</strong>。</p>
+</li>
+<li><p>算法步骤简述：</p>
+<ol>
+<li><p>初始化训练数据的权重。假设有N个样本，则每个样本的权重统一为 1/N。</p>
+</li>
+<li><p>训练弱学习器。</p>
+</li>
+<li><p>专注错题！调整样本权重，根据训练结果<strong>将预测错的样本的权重提高</strong>，具体为二分之一法则，预测错的样本权重和为1/2，预测正确的样本权重和也为1/2，一般而言，我们要求弱学习器的预测准确率下界至少要为50%，这样的分配也会使得错误样本的权重高于正确样本。</p>
+</li>
+<li><p>资源倾斜！调整弱学习器的权重，早期的Adaboost只能进行分类问题，这里以分类问题举例，假设某个弱分类器错误率为e，它的权重为α：</p>
+<script type="math/tex; mode=display">
+\alpha_k = \frac{1}{2}\ln\frac{1-e_k}{e_k},0\le e_k \le 1</script><p>也即，当错误率 e 越高，该分类器的权重 α 越低。</p>
+<div class="note note-success">
+            <p>推导公式传送门：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/pinard/p/6133937.html">集成学习之Adaboost算法原理小结 </a></p>
+          </div>
 </li>
 </ol>
-<p>随机森林优缺点：</p>
+</li>
+</ul>
+<ol>
+<li><p>对于分类问题，每个弱学习器的学习错误率是样本错误率的加权平均（样本权重不一），根据学习错误率，每个弱学习器都有一个对应的学习器权重，最终的强学习器（整个AdaBoost）的结果也将加权计算得出。</p>
+<p>对于回归问题，计算样本的相对误差有三种方式，具体可以参照上面的大佬传送门中，有详细信息。最终的强学习器采用的是加权中位数，而非平均。</p>
+</li>
+</ol>
+<h4 id="对于基学习器的选择的考虑"><a href="#对于基学习器的选择的考虑" class="headerlink" title="对于基学习器的选择的考虑"></a>对于基学习器的选择的考虑</h4><p>选择基学习器值得考虑的两种论调：</p>
 <ul>
-<li>Advantages: <ul>
-<li>随机森林在运算量没有显著提高的前提下提高了预测精度。</li>
-<li>有效降低了过拟合，也即降低了泛化误差中的方差部分。</li>
-<li>在sklearn中，可以借助API来观察特征重要性。</li>
+<li><p>可以用强学习器（铁血抱团詹…咳，强强联合派）</p>
+<ul>
+<li>实际中什么模型都可以集成，但是弱分类器的训练运行成本比较低罢了。（那显然是你的硬件不行！你在无理取闹！你的俱乐部有工资帽！不是我球员不行，不是我的算法不行 okay？）</li>
+<li>哪怕是强学习器也有异质性，只是…..不是那么的不一样罢了！那能叫一样吗，那叫英雄相惜，我当初也是弱学习器来的，你个弱学习器初来乍到，那么幼稚的分类你都能提出来，你也不看看你的准确率和AUC，你懂个屁！</li>
 </ul>
 </li>
-<li>Disadvantages:<ul>
-<li>森林中的决策树个数很多时，训练需要的时间和空间会较大。</li>
+<li><p>不建议用强学习器（弱分类器是为团队而生的，以弱胜强派）</p>
+<ul>
+<li><p>如果采用强分类器，每个分类器都可以很好的描述这批数据，分类器就会趋同，这样集成就没有意义了。因为弱，所以头脑风暴的基点很初级，为看似幼稚、前途未卜的一意孤行存续了可能，谁也不知道这帮无知的家伙能去往何方，但它们的勇敢在决策者的信任下得到发挥，也偶尔能逼近更好的真相，从而降低偏差(bias)。</p>
+</li>
+<li><p>集成学习希望的就是每个分类器的差异越大越好，这样每个分类器都能表述关于数据的一些不同的信息，然后通过集成，得到一个好的分类结果。</p>
+</li>
+<li><p>No free lunch：若每种问题出现的概率是均等的，每个模型用于解决所有问题时，其平均意义上的性能是一样的。而如此一来，弱学习器的低成本就具备优势了。</p>
+<blockquote>
+<p>机器学习的目标不是放之四海而皆准的通用模型，而是关于特定问题有针对性的解决方案。</p>
+</blockquote>
+</li>
+<li><p>Occam’s Razor：如无必要，勿增实体。俄罗斯方块中最能适配的方块往往是结构单一的1x4长条。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>一般而言，我们会选择弱学习器作为基学习器</strong>，而在最后的模型融合时，考虑更高阶的强强联合，也即Voting、Stacking、Blending。</p>
+<div class="note note-success">
+            <p>其实弱不一定恒弱，弱更不一定在集成上恒强，天下没有免费的午餐，不是模型的问题，也不是数据集的问题，只是金风玉露一相逢。有时就是分布之间的契合，两者气性相符，能够相互解读，就得到了最好的答案。</p>
+          </div>
+</li>
+</ul>
+<h4 id="AdaBoost的优缺点"><a href="#AdaBoost的优缺点" class="headerlink" title="AdaBoost的优缺点"></a>AdaBoost的优缺点</h4><ul>
+<li>优点：<ul>
+<li>有效降低了偏差</li>
+<li>可以整合不同的分类算法作为基分类器</li>
+<li>很好的利用了串联（级联）思路</li>
+<li>不用担心over-fitting（这个是较难理解的，需要对Margin理论和加性模型的本质进行深挖）</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>原初算法无法进行回归处理（已改良）</li>
+<li>分类问题需要将Y编码为-1，+1。</li>
+<li>弱分类器的数目需要超参优化</li>
+<li>异常样本在迭代中可能会获得较高的权重（总算不明白还要硬算，认为是自己的问题而不是样本的问题）</li>
+<li>数据不平衡问题束手无策</li>
+<li>慢！——玛德怎么老是慢啊？（这一个字相当折磨，慢导致了它几乎无法被优先考虑，改变也势在必行，<strong>Lightgbm</strong>表示自己已经按捺不住表现欲了——被狠狠按下，xgboost在旁边点了根烟，半天说不出一句话）</li>
 </ul>
 </li>
 </ul>
+<p>​                </p>
+<h4 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h4><p>AdaBoost作为Boosting中第一款具备实操价值的算法，它所采用的思路和沿袭Bagging的RandomForest大相径庭。</p>
+<ul>
+<li><p>RandomForest，侧重优化方差；AdaBoost，侧重优化偏差。</p>
+</li>
+<li><p>RF（随机森林简写）平等的看待了所有的样本和所有的基学习器，这种平等之下其实暗藏了对真相追求的不平等，因为实际上来说，每个样本和每个学习器对实际目标的贡献其实是不相等的，变好变坏没有奖惩，这看似美好的愿景，实际缺失了最关键的正义，变成了理想乡里的一厢情愿。<strong>乌合之众的投票法显然并非最优的制度</strong>，甚至对此的优化方案也是不难察觉的。可以认为真正<strong>目标导向的平等</strong>应该在不同的维度上实现不一的加权平均，或许在更高的非线性上，在更严谨而不可抵达但可以持续逼近的复杂与规约之中，而非绝对的算术平均。当然这也并非是毫无收获的，voting思想也关门开窗，切实的降低了方差，更好的限制了过拟合。</p>
+</li>
+<li><p>AdaBoost 基于Boosting，站在侏儒的肩膀上试图眺望，慢慢的侏儒也并非侏儒，它似乎已经成了后辈的巨人。巨人之所以是巨人，因为他得到了权重的认可。而他成为巨人的方式，也是对不同样本的区别处理以及对前辈经验的承袭。<strong>然而，这样的传承是要付出过拟合的代价的</strong>（当基学习器过于简单时可以被有效抑制，此时反而不容易过拟合）。祖宗不足法，人言不足畏，AdaBoost虽然拥有调整权重的优化策略，但是显然这样的算法也很容易走上一条不归路，也就是过拟合的道路，拿电路来比喻，adaboost的这个初级串联电路的抗风险能力可以用两个字形容——拉闸！它并没有像Bagging一样，对数据集进行BootStrap Sampling，这也更加剧了不稳定性，于是缩小偏差的代价也渐渐凸显——巨大的方差。如此看来AdaBoost，也是一个还有很多优化空间的集成学习算法。</p>
+</li>
+<li><p>我个人认为，Boosting算法是要更加有价值的，它让每个基学习器之间的相互作用发挥了价值，而非是Bagging这般各自为阵，在最后关头再融合决策。这其实是非常低效的，这种独立性和随机性当然保证了低方差，但是放弃合作的机会成本是否过大了呢？</p>
+</li>
+<li><p>举个例子，就好比两支不同的部队执行任务，</p>
+<ul>
+<li>RandomForest部队选择让所有士兵同时出发（并行），每个士兵都发挥主观能动性，给予他们随机的配备与信息。由于初始信息的不同，部队里有些士兵发现了更好的道路与方案，他们按图索骥，找到很好的完成任务的方式。虽然所有士兵的执行逻辑完全一致，有的士兵则运气没那么好了。最后指挥部，会依照士兵们的执行情况（训练），选择下一个执行类似任务的方式（预测），而指挥部选择的竟然是他们所有选择的折中方案。且在任务过程中，士兵之间没有任何的交流，指挥部也没有侧重听取那些找到好方法的士兵，也没有针对性的对某个几乎所有士兵都认为那是个大坑的特定路径予以更多的观照（平等对待错误样本）。这样大开大合的“公平方案”当真是我们需要的吗？</li>
+<li>AdaBoost部队似乎又走向了另外一个极端，他让士兵一个一个出发（串行），并且每个士兵都给予了相同的信息。因为每个士兵最开始接受的训练内容一致（数据集都为全集），他们的执行逻辑也极为相似，这的确有可能使得他们会犯同样的错误。但是由于士兵是一个一个出发，前者完成任务之后会给后者通风报信，让后者必须注意他曾经踩过的坑，并坚定的信任这些信息且关注它们，当然这可能是个好主意，也可能不是。每个士兵都按照这样的方式逐次完成任务，绝对的参考了前者的信息，并完整传达了信息给后者。随着最后一名士兵汇报完毕，指挥官开始认真的审视所有士兵的完成情况，并且给他们的成绩进行一个评分，而评分的标准是按照他们的上一个士兵所提供的信息来做参考的。最终按照他们的评分，加权平均得到一个执行方案，而这个执行方案将作为对未来类似任务的战备方针。这听起来好像更加的科学，但是事实真的如此吗？</li>
+</ul>
+</li>
+<li><p>就我个人拙见与测试结果而言，仅从adaboost和randomforest上看，后者的性能绝大部分情况下更好，而且其运算速度上来说也更加快速。这是否意味着其实Bagging这个看似反直觉的方案反而是更合理的？那如果我们要优化Boosting算法，如何在不更改基学习器（比如CART树）的前提下，通过单纯的优化策略，使得Boosting达到理想的性能呢？</p>
+</li>
+<li><p>且实际操作过程中，我们惊人的发现AdaBoost并没有显著的过拟合现象，这到底是什么原因呢？虽然未来的Boosting算法中不乏有惊世骇俗之辈，但他们或多或少的融入了其他的思想和优化目标，而AdaBoost作为古早的算法也能够有着不俗的对抗过拟合的特性，这到底是为什么呢？</p>
+</li>
+</ul>
+<h3 id="AdaBoost的理论升级之路"><a href="#AdaBoost的理论升级之路" class="headerlink" title="AdaBoost的理论升级之路"></a>AdaBoost的理论升级之路</h3><p>RandomForest在此拿来和AdaBoost来较量，也在于在这段时光中，两个算法的提出者也在过程中进行过对抗学习。</p>
+<p>关于为何AdaBoost算法能够很好的对抗过拟合，随机森林的二位创始人之一——Leo Breiman曾经为AdaBoost的泛化界提出过一个重要假设，加速了该算法的优化历程。西瓜书的作者周志华教授以及南京大学的高尉教授也为此算法做出了突破贡献——让泛化误差上界更加收紧。</p>
+<p>那么“Boosting Margin”到底是什么？</p>
+<p>而这一部分要说起来，就会稍微有些晦涩了。我也要努力学习搬砖，挖个坑之后填。</p>
 
             </div>
             <hr>
