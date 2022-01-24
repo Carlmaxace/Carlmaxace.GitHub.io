@@ -180,7 +180,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      716 字
+      1k 字
     </span>
   
 
@@ -190,7 +190,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      16
        分钟
     </span>
   
@@ -245,9 +245,9 @@
 <li>Low - The lowest USD price during the minute. 最低价</li>
 <li>Close - The USD price at the end of the minute. 结束价</li>
 <li>Volume - The number of cryptoasset u units traded during the minute. 分钟总交易额</li>
-<li>VWAP - The volume-weighted average price for the minute. </li>
+<li>VWAP - The volume-weighted average price for the minute.  一分钟内的加权平均交易金额（单个货币）</li>
 <li>Target - 15 minute residualized returns. See the ‘Prediction and Evaluation section of this notebook for details of how the target is calculated.</li>
-<li>Weight - Weight, defined by the competition hosts <a target="_blank" rel="noopener" href="https://www.kaggle.com/cstein06/tutorial-to-the-g-research-crypto-competition">here</a></li>
+<li>Weight - Weight, defined by the competition hosts <a target="_blank" rel="noopener" href="https://www.kaggle.com/cstein06/tutorial-to-the-g-research-crypto-competition">here </a>每个交易资产的权重</li>
 <li>Asset_Name - Human readable Asset name.</li>
 </ol>
 <p><strong>example_test.csv</strong> - An example of the data that will be delivered by the time series API.</p>
@@ -287,7 +287,16 @@
 </ol>
 </li>
 </ul>
-<h2 id="数据观测"><a href="#数据观测" class="headerlink" title="数据观测"></a>数据观测</h2>
+<h2 id="数据观测"><a href="#数据观测" class="headerlink" title="数据观测"></a>数据观测</h2><ol>
+<li>先做大致的观测</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-comment"># 观察数据大致分布情况，inf情况</span><br>train.describe().T.style.bar(subset=[<span class="hljs-string">&#x27;mean&#x27;</span>], color=<span class="hljs-string">&#x27;#606ff2&#x27;</span>)\<br>                            .background_gradient(subset=[<span class="hljs-string">&#x27;std&#x27;</span>], cmap=<span class="hljs-string">&#x27;BrBG&#x27;</span>)\<br>                            .background_gradient(subset=[<span class="hljs-string">&#x27;min&#x27;</span>], cmap=<span class="hljs-string">&#x27;BrBG&#x27;</span>)\<br>                            .background_gradient(subset=[<span class="hljs-string">&#x27;50%&#x27;</span>], cmap=<span class="hljs-string">&#x27;BrBG&#x27;</span>)<br></code></pre></div></td></tr></table></figure>
+<p><img src="/2021/12/02/%E3%80%90%E6%AF%94%E8%B5%9B%E3%80%91Kaggle%20-%20G-Research%20Crypto%20Forecasting/image-20211209150108814-16390332709421.png" srcset="/img/loading.gif" lazyload alt="EDA"></p>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-comment"># 观察发现Volume异常，尤其是max值</span><br><span class="hljs-comment"># 观察发现Volume-min异常，该值为交易量，不应该为负值，需要予以删除处理</span><br>train.sort_values(by = <span class="hljs-string">&#x27;Volume&#x27;</span>,ascending = <span class="hljs-literal">False</span>).head(<span class="hljs-number">100</span>)[[<span class="hljs-string">&#x27;Asset_ID&#x27;</span>,<span class="hljs-string">&#x27;Asset_Name&#x27;</span>]].value_counts(normalize = <span class="hljs-literal">True</span>) <span class="hljs-comment">#观察volume降序前100，发现狗狗币有过短暂的爆发期，产生了Volume离群值。</span><br></code></pre></div></td></tr></table></figure>
+<p><img src="/2021/12/02/%E3%80%90%E6%AF%94%E8%B5%9B%E3%80%91Kaggle%20-%20G-Research%20Crypto%20Forecasting/image-20211209150340417.png" srcset="/img/loading.gif" lazyload alt="image-20211209150340417"></p>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">EDA1</span>(<span class="hljs-params">data</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    Input</span><br><span class="hljs-string">        data: 待观测DataFrame</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    stats = []<br>    <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> data.columns:<br>        stats.append((col, data[col].nunique(), (data[col].isnull().<span class="hljs-built_in">sum</span>() * <span class="hljs-number">100</span> / data.shape[<span class="hljs-number">0</span>]).<span class="hljs-built_in">round</span>(<span class="hljs-number">3</span>).astype(<span class="hljs-string">&#x27;str&#x27;</span>) + <span class="hljs-string">&#x27;%&#x27;</span>, <br>                      (((data[col] == np.inf).<span class="hljs-built_in">sum</span>() + (data[col] == -np.inf).<span class="hljs-built_in">sum</span>())/data.shape[<span class="hljs-number">0</span>]).<span class="hljs-built_in">round</span>(<span class="hljs-number">3</span>).astype(<span class="hljs-string">&#x27;str&#x27;</span>) + <span class="hljs-string">&#x27;%&#x27;</span>,<br>                      (data[col].value_counts(normalize = <span class="hljs-literal">True</span>, dropna = <span class="hljs-literal">False</span>).values[<span class="hljs-number">0</span>] * <span class="hljs-number">100</span>).<span class="hljs-built_in">round</span>(<span class="hljs-number">3</span>).astype(<span class="hljs-string">&#x27;str&#x27;</span>) + <span class="hljs-string">&#x27;%&#x27;</span>, train[col].dtype))<br>        stats_df = pd.DataFrame(stats, columns=[<span class="hljs-string">&#x27;Feature&#x27;</span>,<span class="hljs-string">&#x27;Unique&#x27;</span>,<span class="hljs-string">&#x27;Percentage of missing values&#x27;</span>,<span class="hljs-string">&#x27;Percentage of infty values&#x27;</span>,<span class="hljs-string">&#x27;Percentage of values in the biggest category&#x27;</span>,<span class="hljs-string">&#x27;type&#x27;</span>])<br>    <span class="hljs-keyword">return</span> stats_df.sort_values(<span class="hljs-string">&#x27;Percentage of missing values&#x27;</span>, ascending = <span class="hljs-literal">False</span>)<br>EDA1(train)<br></code></pre></div></td></tr></table></figure>
+<p><img src="/2021/12/02/%E3%80%90%E6%AF%94%E8%B5%9B%E3%80%91Kaggle%20-%20G-Research%20Crypto%20Forecasting/image-20211210182359658.png" srcset="/img/loading.gif" lazyload alt="image-20211210182359658"></p>
+
             </div>
             <hr>
             <div>

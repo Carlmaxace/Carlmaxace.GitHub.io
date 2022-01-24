@@ -20,7 +20,7 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-  <title>【比赛】CCF - BDCI - 个贷违约预测【排名：13/3246】 - Carl&#39;s Blog</title>
+  <title>【比赛】Kaggle - Sartorius - Cell Instance Segmentation【排名：38/1505】 - Carl&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="【比赛】CCF - BDCI - 个贷违约预测【排名：13/3246】">
+            <span class="h2" id="subtitle" title="【比赛】Kaggle - Sartorius - Cell Instance Segmentation【排名：38/1505】">
               
             </span>
 
@@ -180,7 +180,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      29 字
     </span>
   
 
@@ -190,7 +190,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      1
        分钟
     </span>
   
@@ -228,361 +228,13 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【比赛】CCF - BDCI - 个贷违约预测【排名：13/3246】</h1>
+            <h1 style="display: none">【比赛】Kaggle - Sartorius - Cell Instance Segmentation【排名：38/1505】</h1>
             
             <div class="markdown-body">
-              <h2 id="前期分析"><a href="#前期分析" class="headerlink" title="前期分析"></a>前期分析</h2><div class="note note-success">
-            <p>比赛传送门：<a target="_blank" rel="noopener" href="https://www.datafountain.cn/competitions/530/datasets">https://www.datafountain.cn/competitions/530/datasets</a></p>
-          </div>
-<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><ul>
-<li><p>人话——两个训练集预测一个测试集的二分类问题，指标为AUC。</p>
-</li>
-<li><p>鬼话——迁移学习，使用网上不知名处搜刮到的信贷数据（75w），以及自己的少量过往数据（仅1.5w)，来辅助预测该银行（委托方）自己的业务数据的违约情况。且所包含特征各不相同，部分同名特征同字段或同编码的含义也不完全相同，重要特征的分布也有极大的不同，这些可恶的数据居然也要用来辅助预测。</p>
-</li>
-</ul>
-<h3 id="文件清单和使用说明"><a href="#文件清单和使用说明" class="headerlink" title="文件清单和使用说明"></a>文件清单和使用说明</h3><p><strong>训练数据</strong>   train_public.csv 个人贷款违约记录数据   train_internet_public.csv 某网络信用贷产品违约记录数据</p>
-<p><strong>测试数据</strong>   test_public.csv 用于测试的数据，获取榜单排名</p>
-<p><strong>训练数据说明</strong></p>
-<ul>
-<li>train_public.csv</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>字段描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>loan_id（主键）</td>
-<td>贷款记录唯一标识</td>
-</tr>
-<tr>
-<td>user_id</td>
-<td>借款人唯一标识</td>
-</tr>
-<tr>
-<td>total_loan</td>
-<td>贷款数额</td>
-</tr>
-<tr>
-<td>year_of_loan</td>
-<td>贷款年份</td>
-</tr>
-<tr>
-<td>interest</td>
-<td>当前贷款利率</td>
-</tr>
-<tr>
-<td>monthly_payment</td>
-<td>分期付款金额</td>
-</tr>
-<tr>
-<td>grade</td>
-<td>贷款级别</td>
-</tr>
-<tr>
-<td>employment_type</td>
-<td>所在公司类型（世界五百强、国有企业、普通企业…）</td>
-</tr>
-<tr>
-<td>industry</td>
-<td>工作领域（传统工业、商业、互联网、金融…）</td>
-</tr>
-<tr>
-<td>work_year</td>
-<td>工作年限</td>
-</tr>
-<tr>
-<td>home_exist</td>
-<td>是否有房</td>
-</tr>
-<tr>
-<td>censor_status</td>
-<td>审核情况</td>
-</tr>
-<tr>
-<td>issue_month</td>
-<td>贷款发放的月份</td>
-</tr>
-<tr>
-<td>use</td>
-<td>贷款用途类别</td>
-</tr>
-<tr>
-<td>post_code</td>
-<td>贷款人申请时邮政编码</td>
-</tr>
-<tr>
-<td>region</td>
-<td>地区编码</td>
-</tr>
-<tr>
-<td>debt_loan_ratio</td>
-<td>债务收入比</td>
-</tr>
-<tr>
-<td>del_in_18month</td>
-<td>借款人过去18个月逾期30天以上的违约事件数</td>
-</tr>
-<tr>
-<td>scoring_low</td>
-<td>借款人在贷款评分中所属的下限范围</td>
-</tr>
-<tr>
-<td>scoring_high</td>
-<td>借款人在贷款评分中所属的上限范围</td>
-</tr>
-<tr>
-<td>pub_dero_bankrup</td>
-<td>公开记录清除的数量</td>
-</tr>
-<tr>
-<td>recircle_bal</td>
-<td>信贷周转余额合计</td>
-</tr>
-<tr>
-<td>recircle_util</td>
-<td>循环额度利用率</td>
-</tr>
-<tr>
-<td>initial_list_status</td>
-<td>贷款的初始列表状态</td>
-</tr>
-<tr>
-<td>earlies_credit_mon</td>
-<td>借款人最早报告的信用额度开立的月份</td>
-</tr>
-<tr>
-<td>title</td>
-<td>借款人提供的贷款名称</td>
-</tr>
-<tr>
-<td>policy_code</td>
-<td>公开可用的策略<em>代码=1新产品不公开可用的策略</em>代码=2</td>
-</tr>
-<tr>
-<td>f系列匿名特征</td>
-<td>匿名特征f0-f4，为一些贷款人行为计数特征的处理</td>
-</tr>
-<tr>
-<td>early_return</td>
-<td>借款人提前还款次数</td>
-</tr>
-<tr>
-<td>early_return_amount</td>
-<td>贷款人提前还款累积金额</td>
-</tr>
-<tr>
-<td>early_return_amount_3mon</td>
-<td>近3个月内提前还款金额</td>
-</tr>
-<tr>
-<td><strong>known_outstanding_loan</strong></td>
-<td>借款人档案中未结信用额度的数量</td>
-</tr>
-<tr>
-<td><strong>known_dero</strong></td>
-<td>贬损公共记录的数量</td>
-</tr>
-<tr>
-<td><strong>app_type</strong></td>
-<td>是否个人申请</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>train_internet.csv</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段</th>
-<th>字段描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>loan_id</td>
-<td>网络贷款记录唯一标识</td>
-</tr>
-<tr>
-<td>user_id</td>
-<td>用户唯一标识</td>
-</tr>
-<tr>
-<td>total_loan</td>
-<td>网络贷款金额</td>
-</tr>
-<tr>
-<td>year_of_loan</td>
-<td>网络贷款期限（year）</td>
-</tr>
-<tr>
-<td>interest</td>
-<td>网络贷款利率</td>
-</tr>
-<tr>
-<td>monthly_payment</td>
-<td>分期付款金额</td>
-</tr>
-<tr>
-<td>class</td>
-<td>网络贷款等级</td>
-</tr>
-<tr>
-<td>employment_type</td>
-<td>所在公司类型（世界五百强、国有企业、普通企业…）</td>
-</tr>
-<tr>
-<td>industry</td>
-<td>工作领域（传统工业、商业、互联网、金融…）</td>
-</tr>
-<tr>
-<td>work_year</td>
-<td>就业年限（年）</td>
-</tr>
-<tr>
-<td>house_ownership</td>
-<td>是否有房</td>
-</tr>
-<tr>
-<td>censor_status</td>
-<td>验证状态</td>
-</tr>
-<tr>
-<td>issue_date</td>
-<td>网络贷款发放的月份</td>
-</tr>
-<tr>
-<td>use</td>
-<td>贷款用途</td>
-</tr>
-<tr>
-<td>post_code</td>
-<td>借款人邮政编码的前3位</td>
-</tr>
-<tr>
-<td>region</td>
-<td>地区编码</td>
-</tr>
-<tr>
-<td>debt_loan_ratio</td>
-<td>债务收入比</td>
-</tr>
-<tr>
-<td>del_in_18month</td>
-<td>借款人过去18个月信用档案中逾期60天内的违约事件数</td>
-</tr>
-<tr>
-<td>scoring_low</td>
-<td>借款人在信用评分系统所属的下限范围</td>
-</tr>
-<tr>
-<td>scoring_high</td>
-<td>借款人在信用评分系统所属的上限范围</td>
-</tr>
-<tr>
-<td>pub_dero_bankrup</td>
-<td>公开记录清除的数量</td>
-</tr>
-<tr>
-<td>early_return</td>
-<td>提前还款次数</td>
-</tr>
-<tr>
-<td>early_return_amount</td>
-<td>提前还款累积金额</td>
-</tr>
-<tr>
-<td>early_return_amount_3mon</td>
-<td>近3个月内提前还款金额</td>
-</tr>
-<tr>
-<td>recircle_bal</td>
-<td>信贷周转余额合计</td>
-</tr>
-<tr>
-<td>recircle_util</td>
-<td>循环额度利用率，或借款人使用的相对于所有可用循环信贷的信贷金额</td>
-</tr>
-<tr>
-<td>initial_list_status</td>
-<td>网络贷款的初始列表状态</td>
-</tr>
-<tr>
-<td>earlies_credit_line</td>
-<td>网络贷款信用额度开立的月份</td>
-</tr>
-<tr>
-<td>title</td>
-<td>借款人提供的网络贷款名称</td>
-</tr>
-<tr>
-<td>policy_code</td>
-<td>公开策略=1不公开策略=2</td>
-</tr>
-<tr>
-<td><strong>f系列匿名特征</strong></td>
-<td>匿名特征f0-f5，为一些网络贷款人行为计数特征的处理——<strong>多一个f5</strong></td>
-</tr>
-<tr>
-<td><strong>sub_class</strong></td>
-<td>网络贷款等级之子级</td>
-</tr>
-<tr>
-<td><strong>work_type</strong></td>
-<td>工作类型（公务员、企业白领、创业…）</td>
-</tr>
-<tr>
-<td><strong>marriage</strong></td>
-<td>婚姻状态（未婚、已婚、离异、丧偶）</td>
-</tr>
-<tr>
-<td><strong>offsprings</strong></td>
-<td>子女状态(无子女、学前、小学、中学、大学、工作)</td>
-</tr>
-<tr>
-<td><strong>house_loan_status</strong></td>
-<td>房屋贷款状况（无房贷、正在还房贷、已经还完房贷）</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li>选手提交 submission.csv</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>字段名</th>
-<th>字段说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>id</td>
-<td>贷款记录ID</td>
-</tr>
-<tr>
-<td>isDefault</td>
-<td>是否违约（可为概率、最后我们提交的是归一化rank)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="数据探索"><a href="#数据探索" class="headerlink" title="数据探索"></a>数据探索</h3><ul>
-<li>少量的缺失值，最多缺失的特征列也不到10%</li>
-<li><p>大量的特征格式问题</p>
-</li>
-<li><p>主表train_public缺失工资、有无子女等重要相关特征</p>
-</li>
-</ul>
+              <p>比赛链接：<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/sartorius-cell-instance-segmentation/overview">Sartorius - Cell Instance Segmentation | Kaggle</a></p>
+<p>个人贡献：尝试迁移学习+Ensemble</p>
+<p>最后模型：Mask-RCNN</p>
+<p>待总结</p>
 
             </div>
             <hr>
@@ -602,17 +254,13 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/">迁移学习</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E9%87%91%E8%9E%8D/">金融</a>
+                      <a class="hover-with-bg" href="/tags/Kaggle/">Kaggle</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E9%A3%8E%E6%8E%A7/">风控</a>
+                      <a class="hover-with-bg" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E9%A1%B6%E4%BC%9A/">顶会</a>
-                    
-                      <a class="hover-with-bg" href="/tags/DataFountain/">DataFountain</a>
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/">图像分割</a>
                     
                   </div>
                 
@@ -629,18 +277,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/01/23/%E3%80%90%E6%AF%94%E8%B5%9B%E3%80%91ICASSP%20-%20AIOps%20Challenge%20in%20Communication%20Networks/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【比赛】ICASSP - AIOps Challenge in Communication Networks【排名：3/383】</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/12/02/%E3%80%90%E6%AF%94%E8%B5%9B%E3%80%91Kaggle%20-%20G-Research%20Crypto%20Forecasting/">
-                        <span class="hidden-mobile">【比赛】Kaggle - G-Research Crypto Forecasting 【正在进行】</span>
+                      <a href="/2022/01/23/%E3%80%90%E6%AF%94%E8%B5%9B%E3%80%91ICASSP%20-%20AIOps%20Challenge%20in%20Communication%20Networks/">
+                        <span class="hidden-mobile">【比赛】ICASSP - AIOps Challenge in Communication Networks【排名：3/383】</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
